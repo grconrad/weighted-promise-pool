@@ -1,0 +1,40 @@
+{
+  "folders": [
+    // Expose the entire multiproduct in the file tree
+    {
+      "path": "."
+    }
+  ],
+  // Workspace-level settings can still be overridden at folder or user level
+  "settings": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.detectIndentation": true,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+      "**/.DS_Store": true,
+      "**/.git": true,
+      "**/node_modules": true,
+      "coverage": true,
+    },
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/node_modules": true,
+      "coverage": true,
+    },
+    "eslint.runtime": "node",
+    "prettier.configPath": "./.prettierrc",
+    "prettier.requireConfig": true
+  },
+  "extensions": {
+    // Nicely suggest installation of these extensions, if they're not already installed
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "eamodio.gitlens",
+      "editorconfig.editorconfig",
+      "esbenp.prettier-vscode",
+    ]
+  }
+}

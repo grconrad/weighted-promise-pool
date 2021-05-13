@@ -1,0 +1,51 @@
+{
+  "name": "@grconrad/weighted-promise-pool",
+  "version": "0.0.1",
+  "description": "Promise pool with caller-defined task weights",
+  "keywords": [],
+  "homepage": "https://github.com/grconrad/weighted-promise-pool#readme",
+  "bugs": {
+    "url": "https://github.com/grconrad/weighted-promise-pool/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grconrad/weighted-promise-pool"
+  },
+  "license": "ISC",
+  "author": "Richard Conrad",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src",
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "debug": "^4.3.1"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^26.0.23",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-formatter-pretty": "^4.0.0",
+    "eslint-plugin-import": "^2.23.0",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-promise": "^5.1.0",
+    "jest": "^26.4.2",
+    "prettier": "^2.0.4",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.3"
+  }
+}
