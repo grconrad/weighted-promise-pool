@@ -118,11 +118,13 @@ describe('WeightedPromisePool', () => {
       expect(returnedSquares1).toEqual(returnedSquares2);
     });
 
-    it('Fails if already running', async () => {
+    it('Fails if already running', (done) => {
       const pool = new WeightedPromisePool<number>(maxWeight, tasksReturner);
 
       // Start it
-      pool.run();
+      pool.run().then(() => {
+        done();
+      });
 
       // While it's still running, try running it again
       expect(() => {

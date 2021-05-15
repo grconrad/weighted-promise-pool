@@ -2,7 +2,7 @@
 
 A traditional promise pool manages task concurrency as the number of unresolved promises (async tasks) created by the caller. When the caller kicks off the the next async task, the concurrency count gets bumped by 1. When a promise finishes, the pool decrements the count by 1. All async tasks are treated as equals and assigned an effective weight of 1 by the pool.
 
-`weighted-promise-pool` expands the notion of concurrency, definining it as a total weight of async tasks in flight. The consumer provides the weight of each task to the pool just after triggering the task. The consumer can also take into account the total weight when deciding whether to trigger the next async operation.
+`weighted-promise-pool` expands the notion of concurrency, definining it as a total weight of async tasks in flight. The consumer provides the weight of each task to the pool just after triggering the task. The consumer can also take into account the total weight when deciding whether to trigger the next async task.
 
 In practice, this notion of weight might be a proxy for resource consumption, i.e. the number of CPU cores or a heuristic that approximates computational complexity of the async task.
 

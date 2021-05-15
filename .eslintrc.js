@@ -1,7 +1,6 @@
 module.exports = {
   plugins: ['@typescript-eslint', 'jest', 'promise'],
   extends: [
-    'airbnb-typescript/base',
     'plugin:@typescript-eslint/recommended',
     'plugin:jest/recommended',
     'plugin:promise/recommended',
@@ -19,7 +18,6 @@ module.exports = {
     'no-prototype-builtins': 'off',
     // https://basarat.gitbooks.io/typescript/docs/tips/defaultIsBad.html
     'import/prefer-default-export': 'off',
-    'import/no-default-export': 'error',
     // Use function hoisting to improve code readability
     'no-use-before-define': [
       'error',

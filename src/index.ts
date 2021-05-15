@@ -38,8 +38,8 @@ export class WeightedPromisePool<T> {
   #running = false;
 
   /**
-   * Total weight of the async operations in progress
-   * Not necessarily the number of operations in progress
+   * Total weight of the async tasks in progress
+   * Not necessarily the number of tasks in progress
    * Consumer can specify the weights when
    */
   #currentWeight = 0;
@@ -53,12 +53,13 @@ export class WeightedPromisePool<T> {
   #hasMore = true;
 
   /**
-   * Hang onto our resolve and reject functions so we can resolve the promise we create once all
-   * async tasks are complete
+   * Hang onto our resolve and reject functions so we can resolve our promise when all async tasks
+   * are complete
    */
   #deferred:
     | {
         resolve: (value: WeightedPromisePoolResults<T>) => void;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         reject: (reason?: any) => void;
       }
     | undefined;
@@ -123,7 +124,7 @@ export class WeightedPromisePool<T> {
         debug('Consumer said to wait');
       } else {
         // Work was started
-        const nextTasks = decision as WeightedTask<T>[];
+        const nextTasks = decision;
         // eslint-disable-next-line no-restricted-syntax
         debug(`nextTasks=${nextTasks}`);
         for (let i = 0; i < nextTasks.length; i += 1) {
