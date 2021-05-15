@@ -1,6 +1,6 @@
 {
   "name": "@grconrad/weighted-promise-pool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Weighted promise processing for Node.js",
   "keywords": [
     "grconrad",
