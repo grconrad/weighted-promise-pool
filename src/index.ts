@@ -102,63 +102,53 @@ export class WeightedPromisePool<T> {
     debug(
       `runNext: currentWeight=${this.#currentWeight}, hasMore=${this.#hasMore}`
     );
-    if (this.#currentWeight === 0 && !this.#hasMore) {
-      this.finish();
-      return;
-    }
 
-    if (this.#currentWeight < this.#maxWeight && this.#hasMore) {
-      // Ask consumer for more tasks
-      debug(`Asking for tasks, currentWeight=${this.#currentWeight}`);
-      const decision = this.#next(this.#currentWeight);
+    if (this.#hasMore) {
+      if (this.#currentWeight < this.#maxWeight) {
+        // Ask consumer for more tasks
+        debug(`Asking for tasks, currentWeight=${this.#currentWeight}`);
+        const decision = this.#next(this.#currentWeight);
 
-      if (decision === null) {
-        // Consumer has indicated it has no more tasks to give us, ever
-        this.#hasMore = false;
-        debug('Consumer said there are no more tasks');
-        if (this.#currentWeight === 0) {
-          this.finish();
-        }
-      } else if (decision === 'wait') {
-        // Consumer has more tasks to give us in the future, but not now
-        debug('Consumer said to wait');
-      } else {
-        // Work was started
-        const nextTasks = decision;
-        // eslint-disable-next-line no-restricted-syntax
-        debug(`nextTasks=${nextTasks}`);
-        for (let i = 0; i < nextTasks.length; i += 1) {
-          const { weight, promise } = nextTasks[i];
-          debug(`Got new task with weight=${weight}`);
-          this.#currentWeight += weight;
+        if (decision === null) {
+          // Consumer has indicated it has no more tasks to give us, ever
+          this.#hasMore = false;
+          debug('Consumer said there are no more tasks');
+          if (this.#currentWeight === 0) {
+            this.finish();
+          }
+        } else if (decision === 'wait') {
+          // Consumer has more tasks to give us in the future, but not now
+          debug('Consumer said to wait');
+        } else {
+          // Work was started
+          const nextTasks = decision;
+          for (let i = 0; i < nextTasks.length; i += 1) {
+            const { weight, promise } = nextTasks[i];
+            debug(`Got new task with weight=${weight}`);
+            this.#currentWeight += weight;
 
-          // eslint-disable-next-line promise/catch-or-return
-          promise
-            // eslint-disable-next-line promise/always-return
-            .then((result: T) => {
-              this.#results.push(result);
-            })
-            .finally(() => {
-              debug(`Finished task with weight ${weight}`);
-              this.#currentWeight -= weight;
-              this.runNext();
-            });
+            // eslint-disable-next-line promise/catch-or-return
+            promise
+              // eslint-disable-next-line promise/always-return
+              .then((result: T) => {
+                this.#results.push(result);
+              })
+              .finally(() => {
+                debug(`Finished task with weight ${weight}`);
+                this.#currentWeight -= weight;
+                this.runNext();
+              });
+          }
         }
       }
     } else {
-      throw new Error(`Unexpected`);
+      if (this.#currentWeight === 0) {
+        this.finish();
+      }
     }
   }
 
   private finish(): void {
-    if (this.#currentWeight !== 0 || this.#hasMore) {
-      throw new Error(
-        `Unexpected state when finish() called: currentWeight=${
-          this.#currentWeight
-        }, hasMore=${this.#hasMore}`
-      );
-    }
-
     // All promises have resolved, and the caller doesn't have any more work for us to do
     // We're done here!
     debug('finish: All work completed!');
