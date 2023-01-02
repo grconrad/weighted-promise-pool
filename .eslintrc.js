@@ -1,8 +1,7 @@
 module.exports = {
-  plugins: ['@typescript-eslint', 'jest', 'promise'],
+  plugins: ['@typescript-eslint', 'promise'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
     'plugin:promise/recommended',
     'prettier',
   ],
@@ -11,7 +10,6 @@ module.exports = {
   },
   env: {
     node: true,
-    jest: true,
   },
   rules: {
     // Too restrictive, writing ugly code to defend against a very unlikely scenario: https://eslint.org/docs/rules/no-prototype-builtins

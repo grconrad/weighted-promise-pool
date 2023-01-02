@@ -21,8 +21,7 @@
     },
     "files.exclude": {
       "**/.DS_Store": true,
-      "**/node_modules": true,
-      "coverage": true
+      "**/node_modules": true
     },
     "eslint.runtime": "node",
     "prettier.configPath": "./.prettierrc",

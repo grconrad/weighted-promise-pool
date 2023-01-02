@@ -1,4 +1,5 @@
-/* eslint-disable jest/no-conditional-expect */
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+
 import {
   WeightedPromisePool,
   WeightedTask,
@@ -8,7 +9,7 @@ import {
 
 describe('WeightedPromisePool', () => {
   describe('constructor', () => {
-    it('Rejects invalid max weight', () => {
+    test('Rejects invalid max weight', () => {
       expect(
         () =>
           new WeightedPromisePool<number>(
@@ -29,7 +30,7 @@ describe('WeightedPromisePool', () => {
     beforeEach(() => {
       idx = 0;
 
-      tasksReturner = jest.fn((currentWeight: number): Decision<number> => {
+      tasksReturner = vi.fn((currentWeight: number): Decision<number> => {
         // Find all the primes we can process now
 
         if (idx >= primes.length) {
@@ -54,7 +55,6 @@ describe('WeightedPromisePool', () => {
           const prime = primes[idx];
           newTasks.push({
             weight,
-            // eslint-disable-next-line jest/valid-expect-in-promise
             promise: new Promise<number>((resolve) => {
               setTimeout(() => {
                 resolve(prime * prime);
@@ -77,7 +77,7 @@ describe('WeightedPromisePool', () => {
     });
 
     describe('run', () => {
-      it('Executes as expected', async () => {
+      test('Executes as expected', async () => {
         const pool = new WeightedPromisePool<number>(maxWeight, tasksReturner);
         const { results: returnedSquares } = await pool.run();
 
@@ -109,7 +109,7 @@ describe('WeightedPromisePool', () => {
         expect(returnedSquares).toEqual(squares);
       });
 
-      it('Can run twice', async () => {
+      test('Can run twice', async () => {
         const pool = new WeightedPromisePool<number>(maxWeight, tasksReturner);
         const { results: returnedSquares1 } = await pool.run();
 
@@ -119,18 +119,18 @@ describe('WeightedPromisePool', () => {
         expect(returnedSquares1).toEqual(returnedSquares2);
       });
 
-      it('Fails if already running', (done) => {
+      test('Fails if already running', async () => {
         const pool = new WeightedPromisePool<number>(maxWeight, tasksReturner);
 
         // Start it
-        pool.run().then(() => {
-          done();
-        });
+        const runPromise = pool.run();
 
         // While it's still running, try running it again
         expect(() => {
           pool.run();
         }).toThrow(/Unexpected state/);
+
+        await runPromise;
       });
     });
   });
@@ -147,7 +147,7 @@ describe('WeightedPromisePool', () => {
     beforeEach(() => {
       idx = 0;
 
-      tasksReturner = jest.fn((currentWeight: number): Decision<number> => {
+      tasksReturner = vi.fn((currentWeight: number): Decision<number> => {
         // Find all the fruits we can process now
 
         if (idx >= fruits.length) {
@@ -172,7 +172,6 @@ describe('WeightedPromisePool', () => {
           const fruit = fruits[idx];
           newTasks.push({
             weight,
-            // eslint-disable-next-line jest/valid-expect-in-promise
             promise: new Promise<number>((resolve) => {
               setTimeout(() => {
                 resolve(fruit.length);
@@ -195,7 +194,7 @@ describe('WeightedPromisePool', () => {
     });
 
     describe('run', () => {
-      it('Executes as expected', async () => {
+      test('Executes as expected', async () => {
         const pool = new WeightedPromisePool<number>(maxWeight, tasksReturner);
         const { results: returnedLengths } = await pool.run();
 
