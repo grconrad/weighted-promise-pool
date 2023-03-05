@@ -6,7 +6,7 @@ A traditional promise pool manages task concurrency as the number of unresolved 
 
 In practice, this notion of weight might be a proxy for resource consumption, i.e. the number of CPU cores or a heuristic that approximates computational complexity of the async task.
 
-Example: Consumer knows the host environment can support a total weight of 30. Currently, the pool is tracking that the outstanding tasks have a total weight of 27. This leaves only an available weight of 30 - 27 = 3 (capacity). In this state, the consumer can decide _not_ to hand over the next async task whose weight is 5 (since doing so would exceed the available capacity), or it can select a different async task with a weight <= 3 and begin that task and hand it over the pool.
+Example: Consumer knows the host environment can support a total weight of 30. Currently, the pool is tracking that the outstanding tasks have a total weight of 27. This leaves only an available weight of 30 - 27 = 3 (capacity). In this state, the consumer can decide _not_ to hand over the next async task whose weight is 5 (since doing so would exceed the available capacity), or it can select a different async task with a weight <= 3 and begin that task and hand it over to the pool.
 
 ## Examples
 
