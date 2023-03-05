@@ -14,11 +14,8 @@ Example: Consumer knows the host environment can support a total weight of 30. C
 ## Examples
 
 ```ts
-import {
-  WeightedPromisePool,
-  WeightedTask,
-  Decision,
-} from '@grconrad/weighted-promise-pool';
+import type { Decision, WeightedTask } from '@grconrad/weighted-promise-pool';
+import { WeightedPromisePool } from '@grconrad/weighted-promise-pool';
 
 const maxWeight = 20;
 
