@@ -1,4 +1,7 @@
-# weighted-promise-pool
+# @grconrad/weighted-promise-pool
+
+![](https://github.com/grconrad/weighted-promise-pool/workflows/Node.js%20CI/badge.svg)
+![](https://github.com/grconrad/weighted-promise-pool/workflows/Node.js%20Package/badge.svg)
 
 A traditional promise pool manages task concurrency as the number of unresolved promises (async tasks) created by the caller. When the caller kicks off the the next async task, the concurrency count gets bumped by 1. When a promise finishes, the pool decrements the count by 1. All async tasks are treated as equals and assigned an effective weight of 1 by the pool.
 
