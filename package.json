@@ -45,7 +45,7 @@
     "c8": "^10.1.2",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^10.0.1",
-    "eslint-formatter-pretty": "^6.0.0",
+    "eslint-formatter-pretty": "^7.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-promise": "^7.0.0",
     "npm-run-all": "^4.1.5",
