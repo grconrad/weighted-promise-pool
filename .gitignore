@@ -83,3 +83,7 @@ src/**/*.js
 # Compiled JavaScript files
 dist/
 coverage/
+
+.yarn
+.yarnrc.yml
+tsconfig.tsbuildinfo

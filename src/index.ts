@@ -153,7 +153,6 @@ export class WeightedPromisePool<T> {
     // We're done here!
     debug('finish: All work completed!');
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.#deferred!.resolve({
       results: this.#results,
     });
